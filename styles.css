@@ -197,6 +197,7 @@ button {
 
 .hero-media {
   flex: 1 1 620px;
+  padding: 24px;
 }
 
 .hero-badge {
