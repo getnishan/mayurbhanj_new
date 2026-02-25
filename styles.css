@@ -340,9 +340,9 @@ button {
 .hero-image {
   width: 100%;
   max-width: 620px;
-  height: auto;
+  height: 100%;
   display: block;
-  padding: 24px;
+  padding: 0;
   box-sizing: border-box;
   object-fit: cover;
   aspect-ratio: 10 / 7;
