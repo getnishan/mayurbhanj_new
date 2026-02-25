@@ -1521,6 +1521,46 @@
       document.getElementById('classFilter').value = '';
     }
 
+    const classFilterSelect = document.getElementById('classFilter');
+
+    function getCurrentCoursePool() {
+      if (lastCoursesState && lastCoursesState !== 'all') {
+        return categoryCourses[lastCoursesState] || [];
+      }
+
+      const allCourses = [];
+      Object.keys(categoryCourses).forEach(cat => {
+        categoryCourses[cat].forEach(c => allCourses.push(c));
+      });
+      return allCourses;
+    }
+
+    function applyClassFilter() {
+      const selectedClass = classFilterSelect.value.trim();
+      const pool = getCurrentCoursePool();
+
+      const filtered = selectedClass
+        ? pool.filter((course) => {
+            const name = course.name.toLowerCase();
+            return (
+              name.includes('class ' + selectedClass) ||
+              name.includes('grade ' + selectedClass) ||
+              name.includes('grade' + selectedClass) ||
+              name.includes('(' + selectedClass + ')') ||
+              name.includes('_grade' + selectedClass) ||
+              name.includes('_' + selectedClass)
+            );
+          })
+        : pool;
+
+      renderCourseCards(filtered);
+      courseCount.textContent = selectedClass
+        ? filtered.length + ' of ' + pool.length
+        : (lastCoursesState === 'all' ? pool.length + ' of ' + pool.length : pool.length);
+    }
+
+    classFilterSelect.addEventListener('change', applyClassFilter);
+
     function showCategories() {
       coursesView.style.display = 'none';
       courseDetailView.style.display = 'none';
@@ -1566,6 +1606,15 @@
       { name: 'Kavita Sahu', hours: 28 }
     ];
 
+    const reportBlockList = ['Rairangpur', 'Karanjia', 'Udala'];
+    const reportSchoolList = ['DAV Public School', 'Carmel School', 'Kendriya Vidyalaya', "St. Xavier's School", 'Govt. High School'];
+    const reportTeachersData = teachersData.map((t, index) => ({
+      ...t,
+      block: reportBlockList[index % reportBlockList.length],
+      school: reportSchoolList[index % reportSchoolList.length]
+    }));
+    let filteredReportTeachers = [...reportTeachersData];
+
     // Dummy detail data per teacher (attendance records)
     const teacherDetailData = {};
     teachersData.forEach(t => {
@@ -1582,9 +1631,11 @@
     const reportPerPage = 10;
     let reportCurrentPage = 1;
     let reportSortOrder = 'desc'; // 'asc' or 'desc'
+    const reportBlockSelect = document.getElementById('reportBlock');
+    const reportSchoolSelect = document.getElementById('reportSchool');
 
     function getSortedTeachers() {
-      const sorted = [...teachersData];
+      const sorted = [...filteredReportTeachers];
       sorted.sort((a, b) => reportSortOrder === 'asc' ? a.hours - b.hours : b.hours - a.hours);
       return sorted;
     }
@@ -1594,7 +1645,7 @@
       const start = (reportCurrentPage - 1) * reportPerPage;
       const end = Math.min(start + reportPerPage, sorted.length);
       const pageData = sorted.slice(start, end);
-      const totalPages = Math.ceil(sorted.length / reportPerPage);
+      const totalPages = Math.max(1, Math.ceil(sorted.length / reportPerPage));
 
       const tbody = document.getElementById('reportTableBody');
       tbody.innerHTML = pageData.map((t, i) => {
@@ -1616,13 +1667,19 @@
         '</tr>';
       }).join('');
 
+      if (!pageData.length) {
+        tbody.innerHTML = '<tr><td class="report-td" colspan="3">No records found for selected filters.</td></tr>';
+      }
+
       // Update title
       document.getElementById('reportTableTitle').textContent =
         'Attendance Data for 2026-02-06 - Page ' + reportCurrentPage + ' of ' + totalPages;
 
       // Update pagination info
       document.getElementById('reportPaginationInfo').textContent =
-        'Showing ' + (start + 1) + ' to ' + end + ' of ' + sorted.length + ' entries';
+        (sorted.length
+          ? 'Showing ' + (start + 1) + ' to ' + end + ' of ' + sorted.length + ' entries'
+          : 'Showing 0 to 0 of 0 entries');
 
       // Render page numbers
       const pageNumsEl = document.getElementById('reportPageNumbers');
@@ -1660,9 +1717,22 @@
       if (reportCurrentPage > 1) { reportCurrentPage--; renderReportTable(); }
     });
     document.getElementById('reportNextBtn').addEventListener('click', () => {
-      const totalPages = Math.ceil(teachersData.length / reportPerPage);
+      const totalPages = Math.max(1, Math.ceil(filteredReportTeachers.length / reportPerPage));
       if (reportCurrentPage < totalPages) { reportCurrentPage++; renderReportTable(); }
     });
+
+    function applyReportFilters() {
+      filteredReportTeachers = reportTeachersData.filter((teacher) => {
+        const blockMatch = !reportBlockSelect.value || teacher.block === reportBlockSelect.value;
+        const schoolMatch = !reportSchoolSelect.value || teacher.school === reportSchoolSelect.value;
+        return blockMatch && schoolMatch;
+      });
+      reportCurrentPage = 1;
+      renderReportTable();
+    }
+
+    reportBlockSelect.addEventListener('change', applyReportFilters);
+    reportSchoolSelect.addEventListener('change', applyReportFilters);
     document.getElementById('reportPageNumbers').addEventListener('click', (e) => {
       const btn = e.target.closest('.report-page-num');
       if (btn) {
@@ -1799,14 +1869,23 @@
       { name: 'Kavita Sahu', phone: '7712345698', email: 'kavita.sahu@davschool.in' }
     ];
 
+    const teacherRows = teacherListData.map((teacher, index) => ({
+      ...teacher,
+      block: reportBlockList[index % reportBlockList.length],
+      school: reportSchoolList[index % reportSchoolList.length]
+    }));
+    let filteredTeacherRows = [...teacherRows];
+    const teacherBlockSelect = document.getElementById('teacherBlock');
+    const teacherSchoolSelect = document.getElementById('teacherSchool');
+
     const teacherPerPage = 10;
     let teacherCurrentPage = 1;
 
     function renderTeacherTable() {
       const start = (teacherCurrentPage - 1) * teacherPerPage;
-      const end = Math.min(start + teacherPerPage, teacherListData.length);
-      const pageData = teacherListData.slice(start, end);
-      const totalPages = Math.ceil(teacherListData.length / teacherPerPage);
+      const end = Math.min(start + teacherPerPage, filteredTeacherRows.length);
+      const pageData = filteredTeacherRows.slice(start, end);
+      const totalPages = Math.max(1, Math.ceil(filteredTeacherRows.length / teacherPerPage));
 
       const tbody = document.getElementById('teacherTableBody');
       tbody.innerHTML = pageData.map((t, i) => {
@@ -1839,11 +1918,17 @@
         '</tr>';
       }).join('');
 
+      if (!pageData.length) {
+        tbody.innerHTML = '<tr><td class="report-td" colspan="4">No teachers found for selected filters.</td></tr>';
+      }
+
       document.getElementById('teacherTableTitle').textContent =
         'Attendance Data for 2026-02-06 - Page ' + teacherCurrentPage + ' of ' + totalPages;
 
       document.getElementById('teacherPaginationInfo').textContent =
-        'Showing ' + (start + 1) + ' to ' + end + ' of ' + teacherListData.length + ' entries';
+        (filteredTeacherRows.length
+          ? 'Showing ' + (start + 1) + ' to ' + end + ' of ' + filteredTeacherRows.length + ' entries'
+          : 'Showing 0 to 0 of 0 entries');
 
       const pageNumsEl = document.getElementById('teacherPageNumbers');
       let pageNums = '';
@@ -1860,9 +1945,22 @@
       if (teacherCurrentPage > 1) { teacherCurrentPage--; renderTeacherTable(); }
     });
     document.getElementById('teacherNextBtn').addEventListener('click', () => {
-      const totalPages = Math.ceil(teacherListData.length / teacherPerPage);
+      const totalPages = Math.max(1, Math.ceil(filteredTeacherRows.length / teacherPerPage));
       if (teacherCurrentPage < totalPages) { teacherCurrentPage++; renderTeacherTable(); }
     });
+
+    function applyTeacherFilters() {
+      filteredTeacherRows = teacherRows.filter((teacher) => {
+        const blockMatch = !teacherBlockSelect.value || teacher.block === teacherBlockSelect.value;
+        const schoolMatch = !teacherSchoolSelect.value || teacher.school === teacherSchoolSelect.value;
+        return blockMatch && schoolMatch;
+      });
+      teacherCurrentPage = 1;
+      renderTeacherTable();
+    }
+
+    teacherBlockSelect.addEventListener('change', applyTeacherFilters);
+    teacherSchoolSelect.addEventListener('change', applyTeacherFilters);
     document.getElementById('teacherPageNumbers').addEventListener('click', (e) => {
       const btn = e.target.closest('.report-page-num');
       if (btn) {
