@@ -347,6 +347,7 @@ button {
   box-sizing: border-box;
   object-fit: cover;
   aspect-ratio: 10 / 7;
+  border-radius: 16px;
 }
 
 /* ===== STATS BAR ===== */
