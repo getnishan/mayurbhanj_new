@@ -164,7 +164,7 @@ button {
 /* ===== HERO SECTION ===== */
 .hero {
   min-height: auto;
-  padding: 52px 16px 58px;
+  padding: 52px 16px 52px;
   position: relative;
   display: flex;
   align-items: center;
@@ -197,7 +197,6 @@ button {
 
 .hero-media {
   flex: 1 1 620px;
-  padding: 24px;
 }
 
 .hero-badge {
@@ -343,6 +342,8 @@ button {
   max-width: 620px;
   height: auto;
   display: block;
+  padding: 24px;
+  box-sizing: border-box;
   object-fit: cover;
   aspect-ratio: 10 / 7;
 }
