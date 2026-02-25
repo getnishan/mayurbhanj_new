@@ -164,7 +164,7 @@ button {
 /* ===== HERO SECTION ===== */
 .hero {
   min-height: auto;
-  padding: 52px 48px 58px;
+  padding: 52px 16px 58px;
   position: relative;
   display: flex;
   align-items: center;
