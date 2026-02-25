@@ -1228,7 +1228,7 @@ button {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .hero {
-    padding: 44px 32px 50px;
+    padding: 44px 32px 44px;
   }
 
   .hero-heading {
@@ -1250,7 +1250,7 @@ button {
 
 @media (max-width: 900px) {
   .hero {
-    padding: 42px 24px 46px;
+    padding: 42px 24px 42px;
   }
 
   .hero-heading {
@@ -1349,7 +1349,7 @@ button {
 
 @media (max-width: 600px) {
   .hero {
-    padding: 34px 16px 40px;
+    padding: 34px 16px 34px;
   }
 
   .hero-heading {
