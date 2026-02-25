@@ -192,7 +192,7 @@ button {
 .hero-text {
   flex: 0 1 460px;
   max-width: 460px;
-  text-align: center;
+  text-align: left;
 }
 
 .hero-media {
@@ -217,6 +217,7 @@ button {
   letter-spacing: 0.01em;
   margin-bottom: 10px;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .hero-heading .accent {
