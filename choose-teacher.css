@@ -22,6 +22,29 @@
   margin: 0;
 }
 
+.teacher-hero-title {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 40px);
+  max-width: 980px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-transform: uppercase;
+  z-index: 2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  background: rgba(15, 23, 42, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 12px;
+  padding: 14px 18px;
+  backdrop-filter: blur(2px);
+}
+
 .teacher-badge {
   display: inline-flex;
   align-items: center;
@@ -302,6 +325,14 @@
 @media (max-width: 700px) {
   .teacher-hero {
     padding: 0;
+  }
+
+  .teacher-hero-title {
+    font-size: 32px;
+    top: 50%;
+    letter-spacing: 0.08em;
+    width: calc(100% - 24px);
+    padding: 10px 12px;
   }
 
   .teacher-hero-image {
