@@ -897,6 +897,7 @@ button {
   align-items: center;
   gap: 22px;
   padding: 10px 14px 6px;
+  background: rgba(0, 0, 0, 0.2);
   animation: footerTicker 26s linear infinite;
 }
 
