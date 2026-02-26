@@ -168,6 +168,7 @@ button {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   background: linear-gradient(180deg, #eef2f0 0%, #e6f6df 100%);
   overflow: hidden;
 }
@@ -183,8 +184,8 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  gap: 56px;
+  justify-content: center;
+  gap: 120px;
   position: relative;
   z-index: 1;
 }
@@ -193,6 +194,10 @@ button {
   flex: 0 1 460px;
   max-width: 460px;
   text-align: left;
+  line-height: 50px;
+  letter-spacing: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .hero-media {
@@ -221,9 +226,9 @@ button {
 }
 
 .hero-heading .accent {
-  display: block;
+  display: inline;
   color: #22b573;
-  margin-top: 6px;
+  margin-top: 0;
 }
 
 .hero-subtitle {
@@ -233,6 +238,11 @@ button {
   margin: 0 auto 28px;
   max-width: 560px;
   font-weight: 500;
+  text-align: center;
+}
+
+.hero-subtitle-wrap {
+  width: 100%;
 }
 
 .hero-buttons {
