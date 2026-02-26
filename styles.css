@@ -950,6 +950,8 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  position: relative;
+  padding-bottom: 54px;
 }
 
 .footer-brand {
@@ -980,6 +982,9 @@ button {
 .footer-admin {
   margin: 0;
   font-size: 16px;
+  position: absolute;
+  right: 32px;
+  bottom: 14px;
 }
 
 .footer-admin a {
@@ -1342,11 +1347,16 @@ button {
     padding: 18px 20px;
     flex-direction: column;
     align-items: flex-start;
+    position: static;
+    padding-bottom: 18px;
     gap: 14px;
   }
 
   .footer-admin {
     width: 100%;
+    position: static;
+    right: auto;
+    bottom: auto;
   }
 
   .footer-admin a {
