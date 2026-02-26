@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Login — Mayurbhanj Initiative</title>
+  <meta name="description" content="Login with your school credentials to continue.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="school-login.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='80'>🏛️</text></svg>">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Seal_of_Odisha.png" alt="Odisha Government Emblem">
+      </div>
+      <div class="navbar-title">
+        <span class="navbar-title-main">Medhavi Mayurbhanj</span>
+        <span class="navbar-title-sub">An Initiative of District Administration</span>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="od">ଓଡ଼ିଆ</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="school-login-page">
+    <section class="school-login-card">
+      <h1 class="school-login-heading">School Login</h1>
+      <p class="school-login-copy">
+        Enter your school credentials to continue
+        <strong id="courseNameLabel"></strong>
+      </p>
+
+      <form id="schoolLoginForm" class="school-login-form-page">
+        <label class="school-login-label-page" for="schoolIdInput">School ID</label>
+        <input type="text" id="schoolIdInput" class="school-login-input-page" placeholder="Enter school ID" required>
+
+        <label class="school-login-label-page" for="schoolPasswordInput">Password</label>
+        <input type="password" id="schoolPasswordInput" class="school-login-input-page" placeholder="Enter password" required>
+
+        <div class="school-login-actions-page">
+          <button type="button" id="backToCoursesBtn" class="school-btn school-btn-secondary">Back</button>
+          <button type="submit" class="school-btn school-btn-primary">Continue</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-text">&copy; 2026 Medhavi Mayurbhanj Initiative. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseName = urlParams.get('course') || localStorage.getItem('courseName') || '';
+    const courseNameLabel = document.getElementById('courseNameLabel');
+    if (courseName) {
+      courseNameLabel.textContent = ' for ' + courseName + '.';
+    } else {
+      courseNameLabel.textContent = '.';
+    }
+
+    document.getElementById('backToCoursesBtn').addEventListener('click', () => {
+      window.location.href = 'exam-achievers.html';
+    });
+
+    document.getElementById('schoolLoginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const schoolId = document.getElementById('schoolIdInput').value.trim();
+      const schoolPassword = document.getElementById('schoolPasswordInput').value;
+      if (!schoolId || !schoolPassword) return;
+
+      localStorage.setItem('schoolId', schoolId);
+      if (courseName) localStorage.setItem('courseName', courseName);
+
+      let nextUrl = 'choose-teacher.html';
+      if (courseName) nextUrl += '?course=' + encodeURIComponent(courseName);
+      window.location.href = nextUrl;
+    });
+  </script>
+</body>
+</html>

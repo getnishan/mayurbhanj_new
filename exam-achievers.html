@@ -256,7 +256,7 @@
       <h2 class="modal-heading">Choose Login Type</h2>
       <p class="modal-subtitle">Select how you want to access <strong id="modalCourseName"></strong></p>
 
-      <div class="modal-options">
+      <div class="modal-options" id="modalOptionsStep">
         <!-- Login as School -->
         <button class="modal-option" id="loginSchool">
           <div class="modal-option-icon modal-option-icon-school">
@@ -280,6 +280,25 @@
           <span class="modal-option-title">Login as Student</span>
           <span class="modal-option-desc">Browse and explore course content</span>
         </button>
+      </div>
+
+      <div class="school-login-step" id="schoolLoginStep">
+        <h3 class="school-login-title">School Login</h3>
+        <p class="school-login-subtitle">Enter your school credentials to continue.</p>
+        <form id="schoolLoginForm" class="school-login-form">
+          <div class="school-login-field">
+            <label for="schoolIdInput" class="school-login-label">School ID</label>
+            <input type="text" id="schoolIdInput" class="school-login-input" placeholder="Enter school ID" required>
+          </div>
+          <div class="school-login-field">
+            <label for="schoolPasswordInput" class="school-login-label">Password</label>
+            <input type="password" id="schoolPasswordInput" class="school-login-input" placeholder="Enter password" required>
+          </div>
+          <div class="school-login-actions">
+            <button type="button" class="school-login-btn school-login-btn-secondary" id="schoolLoginBack">Back</button>
+            <button type="submit" class="school-login-btn school-login-btn-primary">Continue</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -323,6 +342,23 @@
     const modal = document.getElementById('loginModal');
     const modalCourseName = document.getElementById('modalCourseName');
     const modalClose = document.getElementById('modalClose');
+    const modalOptionsStep = document.getElementById('modalOptionsStep');
+    const schoolLoginStep = document.getElementById('schoolLoginStep');
+    const schoolLoginForm = document.getElementById('schoolLoginForm');
+    const schoolLoginBack = document.getElementById('schoolLoginBack');
+    const schoolIdInput = document.getElementById('schoolIdInput');
+    const schoolPasswordInput = document.getElementById('schoolPasswordInput');
+
+    function showLoginTypeStep() {
+      modalOptionsStep.style.display = 'flex';
+      schoolLoginStep.classList.remove('active');
+    }
+
+    function showSchoolLoginStep() {
+      modalOptionsStep.style.display = 'none';
+      schoolLoginStep.classList.add('active');
+      schoolIdInput.focus();
+    }
 
     // Open modal on course card click
     document.querySelectorAll('.course-card').forEach(card => {
@@ -331,6 +367,7 @@
         // Extract text without the SVG icon text
         const courseName = titleEl.textContent.trim();
         modalCourseName.textContent = courseName;
+        showLoginTypeStep();
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
@@ -348,14 +385,15 @@
     function closeModal() {
       modal.classList.remove('active');
       document.body.style.overflow = '';
+      showLoginTypeStep();
+      schoolLoginForm.reset();
     }
 
     // Login option handlers
     document.getElementById('loginSchool').addEventListener('click', () => {
-      closeModal();
       const courseName = modalCourseName.textContent.trim();
-      localStorage.setItem('courseName', courseName);
-      window.location.href = 'choose-teacher.html?course=' + encodeURIComponent(courseName);
+      closeModal();
+      window.location.href = 'school-login.html?course=' + encodeURIComponent(courseName);
     });
 
     document.getElementById('loginGuest').addEventListener('click', () => {
@@ -363,6 +401,21 @@
       const courseName = modalCourseName.textContent.trim();
       localStorage.setItem('courseName', courseName);
       window.location.href = 'course-content.html?course=' + encodeURIComponent(courseName) + '&role=student';
+    });
+
+    schoolLoginBack.addEventListener('click', () => {
+      showLoginTypeStep();
+    });
+
+    schoolLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const courseName = modalCourseName.textContent.trim();
+      const schoolId = schoolIdInput.value.trim();
+      if (!schoolId || !schoolPasswordInput.value) return;
+      localStorage.setItem('courseName', courseName);
+      localStorage.setItem('schoolId', schoolId);
+      closeModal();
+      window.location.href = 'choose-teacher.html?course=' + encodeURIComponent(courseName);
     });
   </script>
 

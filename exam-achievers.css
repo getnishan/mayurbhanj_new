@@ -545,6 +545,100 @@
   line-height: 1.4;
 }
 
+.school-login-step {
+  display: none;
+}
+
+.school-login-step.active {
+  display: block;
+}
+
+.school-login-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.school-login-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.school-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.school-login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.school-login-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.school-login-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text-dark);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.school-login-input:focus {
+  border-color: var(--green-primary);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.school-login-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.school-login-btn {
+  flex: 1;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.school-login-btn-secondary {
+  background: #f3f4f6;
+  color: var(--text-dark);
+}
+
+.school-login-btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.school-login-btn-primary {
+  background: var(--green-primary);
+  color: #ffffff;
+}
+
+.school-login-btn-primary:hover {
+  background: var(--green-dark);
+}
+
 @media (max-width: 480px) {
   .modal {
     padding: 28px 20px 24px;
