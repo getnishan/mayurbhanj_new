@@ -215,7 +215,7 @@ button {
 }
 
 .hero-heading {
-  font-size: 66px;
+  font-size: 60px;
   font-weight: 900;
   color: #0f1736;
   line-height: 0.95;
@@ -226,9 +226,9 @@ button {
 }
 
 .hero-heading .accent {
-  display: inline;
+  display: block;
   color: #22b573;
-  margin-top: 0;
+  margin-top: 6px;
 }
 
 .hero-subtitle {
