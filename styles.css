@@ -887,7 +887,7 @@ button {
 
 .footer-news {
   border-bottom: none;
-  background: transparent;
+  background: rgba(15, 23, 42, 0.35);
   overflow: hidden;
 }
 
