@@ -172,14 +172,14 @@
     if (testimonialTrack && testimonialDots && testimonialCards.length > 1) {
       let currentSlide = 0;
       let autoplayTimer;
-      let visibleCount = 3;
+      let visibleCount = 2;
       let maxSlideIndex = 0;
       let dotEls = [];
 
       function getVisibleCount() {
         if (window.innerWidth <= 480) return 1;
         if (window.innerWidth <= 900) return 2;
-        return 3;
+        return 2;
       }
 
       function buildDots() {

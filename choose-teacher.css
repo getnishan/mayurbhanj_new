@@ -222,7 +222,7 @@
   grid-template-columns: 72px 1fr;
   column-gap: 14px;
   align-items: center;
-  flex: 0 0 calc((100% - 32px) / 3);
+  flex: 0 0 calc((100% - 16px) / 2);
 }
 
 .testimonial-avatar {
