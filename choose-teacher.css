@@ -130,11 +130,16 @@
 .teacher-name {
   font-size: 18px;
   font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 2px;
+  color: #ffffff;
+  margin-bottom: 8px;
   letter-spacing: -0.01em;
   line-height: 1.35;
   text-align: center;
+  background: #16a34a;
+  border: 1px solid #15803d;
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-transform: uppercase;
 }
 
 .teacher-status {
@@ -145,23 +150,18 @@
   text-align: center;
 }
 
-.teacher-link {
+.teacher-note {
   margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 40px;
-  padding: 10px 16px;
+  min-height: 64px;
+  padding: 10px 12px;
   border-radius: 8px;
-  background: var(--green-primary);
-  color: #ffffff;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
   font-size: 13px;
-  font-weight: 700;
-  transition: var(--transition);
-}
-
-.teacher-link:hover {
-  background: var(--green-dark);
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
 }
 
 /* ===== TESTIMONIALS ===== */
